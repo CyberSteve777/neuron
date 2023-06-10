@@ -118,7 +118,7 @@ fn main() {
         }
         println!("Test?(1/0)");
         let mut to_start_test: i32 = scan.next_value();
-        while to_start_test == 1 {
+        if to_start_test == 1 {
             let mut ex_tests = 0;
             let mut rim = String::new();
             let mut data_test: Vec<DataInfo>;
@@ -152,9 +152,8 @@ fn main() {
             //////////////////////////////////////////////////////////
             println!("Полученное число: {}", rim);
             //////////////////////////////////////////////////////////
-
-            println!("Repeat? (1/0)");
-            to_start_test = scan.next_value();
         }
+        println!("Repeat? (1/0)");
+        repeat = scan.next_value();
     }
 }

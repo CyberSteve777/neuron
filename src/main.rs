@@ -131,19 +131,7 @@ fn main() {
                 if right == predict {
                     ra += 1.0;
                 }
-                let r1: String;
-                match predict as i32 {
-                    0 => r1 = "0".to_string(),
-                    1 => r1 = "1".to_string(),
-                    2 => r1 = "2".to_string(),
-                    3 => r1 = "3".to_string(),
-                    4 => r1 = "4".to_string(),
-                    5 => r1 = "5".to_string(),
-                    6 => r1 = "6".to_string(),
-                    7 => r1 = "7".to_string(),
-                    8 => r1 = "8".to_string(),
-                    _ => r1 = "9".to_string(),
-                }
+                let r1 = (predict as i32).to_string();
                 println!("Your digit {} = {}", i + 1, r1);
                 rim.push_str(&r1);
             }

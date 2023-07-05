@@ -10,9 +10,10 @@ use active_func::ActivateFunc;
 use active_func::ActivateFunction;
 mod network;
 mod scanner;
+
 use network::DataNetwork;
 use network::Network;
-use crate::scanner::{Scanner, scanner_from_file, scanner_from_stdin};
+use crate::scanner::{scanner_from_file, scanner_from_stdin};
 
 #[derive(Clone)]
 pub struct DataInfo {
@@ -44,14 +45,15 @@ pub fn read_data_network(path: &str) -> DataNetwork {
         numbers.push(v);
     }
     let mut data = DataNetwork::from_data(numbers.len() as i32, numbers);
-    return data;
+    data
 }
 
-pub fn read_data(path: &str, sz: i32, ex: &mut i32) -> Vec<DataInfo> {
+pub fn  read_data(path: &str, sz: i32, ex: &mut i32) -> Vec<DataInfo> {
     let mut sc = scanner_from_file(path);
     let mut cnt = sc.next_value();
-    println!("{} {}", cnt, sz);
+    println!("{} {}", cnt, *ex);
     *ex = cnt;
+    println!("{} {}", cnt, *ex);
     let mut d = vec![DataInfo::new(); cnt as usize];
     println!("Examples: {}", cnt);
     for i in 0..cnt {
@@ -66,7 +68,7 @@ pub fn read_data(path: &str, sz: i32, ex: &mut i32) -> Vec<DataInfo> {
 
 fn main() {
     let mut nw = Network::new();
-    let mut nw_config = DataNetwork::new();
+    let mut nw_config = read_data_network("config.txt");
     let mut data: Vec<DataInfo>;
     let mut ra = 0.;
     let mut right: f64;
@@ -77,7 +79,6 @@ fn main() {
     let mut repeat = 1;
     let mut time: Duration;
     let mut scan = scanner_from_stdin();
-    nw_config = read_data_network("config.txt");
     nw.init(nw_config.clone(), & mut scan);
     nw.print_config();
     while repeat == 1 {

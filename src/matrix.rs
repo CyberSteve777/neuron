@@ -36,7 +36,8 @@ impl Matrix {
         let mut rng = thread_rng();
         for i in 0..self.rws {
             for j in 0..self.cms {
-                self.data[i as usize][j as usize] = ((rng.next_u64() % 1000) as f64) / 1000_f64;
+                self.data[i as usize][j as usize] = ((rng.gen::<i32>() % 100) as f64) * 0.03 /
+                    ((self.rws as f64) + 35.0);
             }
         }
     }
@@ -56,7 +57,7 @@ impl Matrix {
         return ans;
     }
 
-    pub fn multiply(m1: Matrix, neuron: Vec<f64>, c: &mut [f64]) {
+    pub fn multiply(m1: Matrix, neuron: Vec<f64>, c: &mut Vec<f64>) {
         for i in 0..m1.rws {
             let mut tmp = 0.0;
             for j in 0..m1.cms {
@@ -66,7 +67,7 @@ impl Matrix {
         }
     }
 
-    pub fn multiply_transposed(m1: Matrix, neuron: Vec<f64>, c: &mut [f64]) {
+    pub fn multiply_transposed(m1: Matrix, neuron: Vec<f64>, c: &mut Vec<f64>) {
         for i in 0..m1.cms {
             let mut tmp = 0.0;
             for j in 0..m1.rws {
@@ -76,7 +77,7 @@ impl Matrix {
         }
     }
 
-    pub fn sum_vector(a: &mut [f64], b: Vec<f64>, n: i32)
+    pub fn sum_vector(a: &mut Vec<f64>, b: Vec<f64>, n: i32)
     {
         for i in 0..n {
             a[i as usize] += b[i as usize];

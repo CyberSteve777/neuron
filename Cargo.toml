@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 rand = "0.8.5"
+keras = "0.0.1"

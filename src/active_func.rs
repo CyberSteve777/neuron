@@ -32,7 +32,7 @@ impl ActivateFunction {
         }
     }
 
-    pub fn apply(&self, val: &mut [f64], n: i32) {
+    pub fn apply(&self, val: &mut Vec<f64>, n: i32) {
         match self.active_func {
             ActivateFunc::Sigmoid => {
                 for i in 0..n {

@@ -120,10 +120,10 @@ impl Network {
         for i in 1..self.l {
             Matrix::multiply(self.weights[(i - 1) as usize].clone(),
                              (self.neurons_val[(i - 1) as usize]).clone(),
-                             self.neurons_val[i as usize].as_mut_slice());
-            Matrix::sum_vector(self.neurons_val[i as usize].as_mut_slice(),
+                             &mut self.neurons_val[i as usize]);
+            Matrix::sum_vector(&mut self.neurons_val[i as usize],
                                self.bios[(i - 1) as usize].clone(), self.size[i as usize]);
-            self.act_func.apply(self.neurons_val[i as usize].as_mut_slice(), self.size[i as usize]);
+            self.act_func.apply(&mut self.neurons_val[i as usize], self.size[i as usize]);
         }
         let pred = Network::search_max_index(self, self.neurons_val[(self.l - 1) as usize].clone());
         return pred as f64;
@@ -144,7 +144,7 @@ impl Network {
         for i in (1..self.l - 1).rev() {
             Matrix::multiply_transposed(self.weights[i as usize].clone(),
                              (self.neurons_val[(i + 1) as usize]).clone(),
-                             self.neurons_val[i as usize].as_mut_slice());
+                             &mut self.neurons_val[i as usize]);
             for j in 0..self.size[i as usize] {
                 self.neurons_err[i as usize][j as usize] *= self.act_func.use_der(
                     self.neurons_val[i as usize][j as usize]);
